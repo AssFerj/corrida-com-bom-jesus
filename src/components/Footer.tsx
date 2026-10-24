@@ -12,7 +12,7 @@ const quickLinks = [
   { href: "#percursos", label: "Ponto de Largada" },
 ];
 
-const partners = ["Prefeitura Municipal", "Federação Atletismo", "Paróquia Matriz", "Guarda Portuária"];
+const partners = ["Famol Móveis e Eletros", "Famol Moda Masculina", "Cacaushow"];
 
 const socials = [
   { icon: Share2, label: "Compartilhar" },
@@ -79,7 +79,7 @@ export function Footer() {
                 </motion.div>
               ))}
             </motion.div>
-            <div className="mt-2 flex items-center gap-4">
+            {/* <div className="mt-2 flex items-center gap-4">
               {socials.map(({ icon: Icon, label }) => (
                 <motion.a
                   key={label}
@@ -92,7 +92,7 @@ export function Footer() {
                   <Icon size={20} />
                 </motion.a>
               ))}
-            </div>
+            </div> */}
           </motion.div>
         </div>
 

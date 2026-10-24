@@ -21,7 +21,7 @@ export function Kit() {
             eyebrow="Experiência Completa"
             eyebrowClass="text-primary"
             title="Kit Atleta & Medalha"
-            description="Cada atleta inscrito por apenas R$ 10,00 (+ 1kg de alimento) recebe itens de padrão profissional, garantindo segurança, conforto e uma lembrança eterna da sua conquista pessoal."
+            description="Cada atleta inscrito por apenas R$ 10,00 (+ 1kg de alimento) recebe itens de padrão profissional, garantindo uma lembrança eterna dessa   conquista."
           />
 
           <motion.div
@@ -80,7 +80,7 @@ export function Kit() {
               className="absolute inset-0"
             >
               <Image
-                src="/images/kit-medalha.jpg"
+                src="/images/kit-medalha.png"
                 alt="Medalha finisher em metal com fita laranja ao lado da camiseta técnica do evento"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
@@ -97,7 +97,7 @@ export function Kit() {
                 <Medal size={28} className="shrink-0 text-secondary-container" />
                 <div>
                   <h4 className="font-display text-lg font-medium uppercase leading-tight text-white sm:text-xl">
-                    Medalha Finisher Exclusiva
+                    Medalha Exclusiva
                   </h4>
                   <span className="text-sm text-on-surface-variant">Entregue para todos os concluintes dos 3k e 5k</span>
                 </div>
