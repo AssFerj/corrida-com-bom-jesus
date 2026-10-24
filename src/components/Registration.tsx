@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ChevronDown, CircleCheckBig, QrCode, ShieldCheck, Zap } from "lucide-react";
+import { CircleCheckBig, QrCode, ShieldCheck, Zap } from "lucide-react";
 import { ease, fadeUp, popIn, stagger, viewportOnce } from "@/lib/motion";
 
 const fieldCls =
@@ -206,21 +206,8 @@ export function Registration() {
                   />
                 </motion.div>
 
-                <motion.div variants={fadeUp} className="grid grid-cols-1 gap-4 pt-1 md:grid-cols-2">
-                  <div className="flex flex-col gap-1.5">
-                    <label htmlFor="camiseta" className={labelCls}>Tamanho da Camiseta Dry-Fit</label>
-                    <div className="relative">
-                      <select id="camiseta" name="camiseta" defaultValue="M" className={`${fieldCls} cursor-pointer appearance-none pr-12`}>
-                        <option value="P">Tamanho P (Unissex)</option>
-                        <option value="M">Tamanho M (Unissex)</option>
-                        <option value="G">Tamanho G (Unissex)</option>
-                        <option value="GG">Tamanho GG (Unissex)</option>
-                        <option value="BL-M">Baby Look M (Feminina)</option>
-                      </select>
-                      <ChevronDown size={18} className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-secondary-container" />
-                    </div>
-                  </div>
-                  <label className="mt-auto flex cursor-pointer items-center gap-3 rounded-[1.5rem] bg-surface-container-high/60 p-3">
+                <motion.div variants={fadeUp} className="pt-1">
+                  <label className="flex cursor-pointer items-center gap-3 rounded-[1.5rem] bg-surface-container-high/60 p-3">
                     <input type="checkbox" required defaultChecked className="h-5 w-5 shrink-0 accent-primary-container" />
                     <span className="text-sm leading-snug text-on-surface-variant">
                       Estou ciente de que devo levar <strong className="text-white">1kg de alimento não-perecível</strong> na

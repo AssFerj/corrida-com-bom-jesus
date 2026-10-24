@@ -1,7 +1,7 @@
 import * as motion from "motion/react-client";
 import { Clock, Droplet, Mountain, Award, Gauge, Trophy, MapIcon } from "lucide-react";
 import { SectionHeading } from "./ui";
-import { drawPath, fadeLeft, fadeRight, fadeUp, stagger, viewportOnce } from "@/lib/motion";
+import { drawPath, fadeLeft, fadeRight, fadeUp, stagger } from "@/lib/motion";
 
 type Course = {
   tag: string;
@@ -11,11 +11,7 @@ type Course = {
   bigCls: string;
   text: string;
   features: { icon: typeof Clock; text: string; cls: string }[];
-  elevationLabel: string;
-  elevationMax: string;
   color: string;
-  path: string;
-  points: [number, number][];
   cta: string;
   ctaPrimary?: boolean;
 };
@@ -34,11 +30,7 @@ const courses: Course[] = [
       { icon: Mountain, text: "Ganho altimétrico: 8m (Plano)", cls: "text-secondary-container" },
       { icon: Award, text: "Medalha Finisher no pórtico", cls: "text-secondary" },
     ],
-    elevationLabel: "Altimetria Suave (Km 0 → Km 3)",
-    elevationMax: "Elevação Máx 12m",
     color: "#00daf3",
-    path: "M 0,45 Q 100,40 200,32 T 400,42",
-    points: [[200, 32]],
     cta: "Inscrever nos 3km • R$ 10,00",
   },
   {
@@ -54,14 +46,7 @@ const courses: Course[] = [
       { icon: Gauge, text: "Chip Eletrônico de Precisão", cls: "text-secondary-container" },
       { icon: Trophy, text: "Troféus Geral & Faixa Etária", cls: "text-secondary" },
     ],
-    elevationLabel: "Altimetria Rápida (Km 0 → Km 5)",
-    elevationMax: "Elevação Máx 14m",
     color: "#ff5708",
-    path: "M 0,46 Q 80,44 150,30 T 300,38 T 400,45",
-    points: [
-      [150, 30],
-      [300, 38],
-    ],
     cta: "Inscrever nos 5km • R$ 10,00",
     ctaPrimary: true,
   },
@@ -120,50 +105,6 @@ function CourseCard({ c, index }: { c: Course; index: number }) {
               <span className="text-sm">{text}</span>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Altimetria */}
-        <motion.div variants={fadeUp} className="flex w-full flex-col gap-1 rounded-4xl bg-surface-container-low p-4">
-          <div className="flex items-center justify-between gap-2 text-xs font-semibold text-on-surface-variant">
-            <span>{c.elevationLabel}</span>
-            <span className="font-bold" style={{ color: index === 0 ? "#ffd395" : c.color }}>
-              {c.elevationMax}
-            </span>
-          </div>
-          <motion.svg
-            viewBox="0 0 400 60"
-            fill="none"
-            className="h-12 w-full"
-            initial="hidden"
-            whileInView="show"
-            viewport={viewportOnce}
-          >
-            <defs>
-              <linearGradient id={`elev-${index}`} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor={c.color} stopOpacity="0.35" />
-                <stop offset="1" stopColor={c.color} stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            <motion.path
-              d={`${c.path} L 400,60 L 0,60 Z`}
-              fill={`url(#elev-${index})`}
-              variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { delay: 1.2, duration: 0.8 } } }}
-            />
-            <motion.path d={c.path} stroke={c.color} strokeWidth={3} strokeLinecap="round" variants={drawPath} />
-            {c.points.map(([cx, cy], i) => (
-              <motion.circle
-                key={i}
-                cx={cx}
-                cy={cy}
-                r={4}
-                fill={c.color}
-                variants={{
-                  hidden: { scale: 0 },
-                  show: { scale: 1, transition: { delay: 1 + i * 0.3, type: "spring", stiffness: 400 } },
-                }}
-              />
-            ))}
-          </motion.svg>
         </motion.div>
 
         <motion.a
