@@ -1,5 +1,5 @@
 import * as motion from "motion/react-client";
-import { Clock, Droplet, Mountain, Award, Gauge, Trophy, MapIcon, MoveHorizontal } from "lucide-react";
+import { Clock, Droplet, Mountain, Award, Gauge, Trophy, MapIcon } from "lucide-react";
 import { SectionHeading } from "./ui";
 import { drawPath, fadeLeft, fadeRight, fadeUp, stagger, viewportOnce } from "@/lib/motion";
 
@@ -67,8 +67,11 @@ const courses: Course[] = [
   },
 ];
 
+// Circuito real no centro de Camocim (traçado a partir do mapa do percurso)
 const ROUTE =
-  "M 100,160 L 320,160 C 420,160 460,80 560,80 L 800,80 C 820,80 840,100 840,120 C 840,140 820,160 800,160 L 560,160 C 460,160 420,240 320,240 L 100,240 C 70,240 70,160 100,160 Z";
+  "M 52,16 L 75,6 L 88,10 L 278,128 L 460,210 L 680,342 L 735,348 L 838,400 L 1000,512 L 898,602 L 790,693 L 670,795 L 655,795 L 618,760 L 592,730 L 612,720 L 662,688 L 525,560 L 404,452 L 555,328 L 507,290 L 363,200 L 245,120 L 180,90 Z";
+const COAST = "M 120,-70 L 150,0 L 300,98 L 470,192 L 690,318 L 845,382 L 1010,478 L 1060,496";
+const SEA = `${COAST} L 1060,-70 Z`;
 
 function CourseCard({ c, index }: { c: Course; index: number }) {
   return (
@@ -181,17 +184,12 @@ function CourseCard({ c, index }: { c: Course; index: number }) {
 }
 
 function CircuitMap() {
-  const markers = [
-    { cx: 100, cy: 160, r: 14, fill: "#ff5708", inner: true },
-    { cx: 450, cy: 120, r: 10, fill: "#00daf3", inner: true },
-    { cx: 820, cy: 120, r: 10, fill: "#ffae00" },
-    { cx: 560, cy: 160, r: 10, fill: "#ffdbcf" },
-  ];
-  const labels = [
-    { x: 90, y: 130, text: "PÓRTICO DE LARGADA (06:00)", fill: "#ffffff", size: 16, display: true },
-    { x: 430, y: 105, text: "HIDRATAÇÃO 1", fill: "#00daf3", size: 12 },
-    { x: 750, y: 60, text: "RETORNO 5KM", fill: "#ffae00", size: 12 },
-    { x: 520, y: 195, text: "RETORNO 3KM", fill: "#ffdbcf", size: 12 },
+  // Ponto de largada/chegada (canto da Beira Mar)
+  const start = { x: 52, y: 16 };
+
+  const landmarks = [
+    { cx: 262, cy: 124, label: "BEIRA MAR", lx: 300, ly: 92 },
+    { cx: 642, cy: 272, label: "PÍER DE CAMOCIM", lx: 668, ly: 250 },
   ];
 
   return (
@@ -206,7 +204,7 @@ function CircuitMap() {
         <div className="flex items-center gap-2">
           <MapIcon className="text-primary-container" size={22} />
           <span className="font-display text-lg font-medium uppercase text-white sm:text-xl">
-            Mapa Esquemático do Circuito
+            Mapa do Circuito • Beira Mar de Camocim
           </span>
         </div>
         <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-on-surface-variant">
@@ -214,29 +212,66 @@ function CircuitMap() {
             <span className="inline-block h-3 w-3 rounded-full bg-primary-container" /> Largada/Chegada
           </span>
           <span className="flex items-center gap-1">
-            <span className="inline-block h-3 w-3 rounded-full bg-tertiary" /> Postos de Hidratação
+            <span className="inline-block h-3 w-3 rounded-full bg-primary-fixed" /> Pontos de Referência
           </span>
         </div>
       </div>
 
-      <div className="relative w-full overflow-x-auto rounded-[1.5rem] bg-surface-container-lowest [scrollbar-width:none]">
+      <div className="relative w-full overflow-hidden rounded-[1.5rem] bg-surface-container-lowest">
         <motion.svg
-          viewBox="0 0 900 320"
+          viewBox="0 -70 1060 890"
           fill="none"
-          className="h-64 w-full min-w-[680px] sm:h-80 md:min-w-0"
+          className="mx-auto block h-auto max-h-[620px] w-full"
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.3 }}
           role="img"
-          aria-label="Mapa esquemático do circuito com largada, hidratação e pontos de retorno"
+          aria-label="Mapa do circuito pelo centro de Camocim, com largada na Beira Mar, passagem pela orla e pelo Píer"
         >
-          {/* Orla / água */}
-          <motion.path
-            d="M 50,280 C 250,260 450,310 850,240 L 850,320 L 50,320 Z"
-            fill="#00363d"
-            variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 0.35, y: 0, transition: { duration: 1.2 } } }}
+          <defs>
+            {/* Malha de ruas, alinhada com a orla */}
+            <pattern id="streets" width="64" height="64" patternUnits="userSpaceOnUse" patternTransform="rotate(29)">
+              <path d="M0 0H64M0 0V64" stroke="#2a2a2c" strokeWidth="2" />
+            </pattern>
+            <linearGradient id="sea" x1="0" y1="0" x2="0.4" y2="1">
+              <stop offset="0" stopColor="#00363d" stopOpacity="0.55" />
+              <stop offset="1" stopColor="#00363d" stopOpacity="0.25" />
+            </linearGradient>
+          </defs>
+
+          {/* Ruas do centro */}
+          <motion.rect
+            x="0"
+            y="-70"
+            width="1060"
+            height="890"
+            fill="url(#streets)"
+            variants={{ hidden: { opacity: 0 }, show: { opacity: 0.8, transition: { duration: 1.2 } } }}
           />
-          <text x="700" y="290" fill="#00daf3" opacity="0.5" fontSize="12" fontWeight="600" className="font-sans">
+
+          {/* Mar / orla */}
+          <motion.path
+            d={SEA}
+            fill="url(#sea)"
+            variants={{ hidden: { opacity: 0, y: -30 }, show: { opacity: 1, y: 0, transition: { duration: 1.2 } } }}
+          />
+          <motion.path
+            d={COAST}
+            stroke="#00daf3"
+            strokeWidth={2}
+            strokeOpacity={0.35}
+            variants={drawPath}
+          />
+          {/* Píer */}
+          <motion.path
+            d="M 632,284 L 664,250"
+            stroke="#00daf3"
+            strokeOpacity={0.5}
+            strokeWidth={6}
+            strokeLinecap="round"
+            variants={{ hidden: { pathLength: 0 }, show: { pathLength: 1, transition: { delay: 1, duration: 0.6 } } }}
+          />
+          <text x="790" y="150" fill="#00daf3" opacity="0.5" fontSize="20" fontWeight="600" className="font-sans">
             ÁGUAS DE BOM JESUS
           </text>
 
@@ -244,74 +279,75 @@ function CircuitMap() {
           <motion.path
             d={ROUTE}
             stroke="#353437"
-            strokeWidth={26}
+            strokeWidth={30}
             strokeLinecap="round"
             strokeLinejoin="round"
-            variants={{ hidden: { pathLength: 0 }, show: { pathLength: 1, transition: { duration: 2, ease: "easeInOut" } } }}
+            variants={{ hidden: { pathLength: 0 }, show: { pathLength: 1, transition: { duration: 2.2, ease: "easeInOut" } } }}
           />
-          <motion.g
-            variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { delay: 1.6, duration: 0.6 } } }}
-          >
+          <motion.g variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { delay: 1.8, duration: 0.6 } } }}>
             <path
               d={ROUTE}
               stroke="#ff5708"
-              strokeWidth={8}
+              strokeWidth={9}
               strokeDasharray="14 8"
               strokeLinecap="round"
               strokeLinejoin="round"
               className="animate-dash"
             />
             {/* Corredor percorrendo o circuito */}
-            <circle r="9" fill="#ffae00" opacity="0.35">
-              <animateMotion dur="10s" repeatCount="indefinite" path={ROUTE} />
+            <circle r="11" fill="#ffae00" opacity="0.35">
+              <animateMotion dur="16s" repeatCount="indefinite" path={ROUTE} />
             </circle>
-            <circle r="5" fill="#ffffff">
-              <animateMotion dur="10s" repeatCount="indefinite" path={ROUTE} />
+            <circle r="6" fill="#ffffff">
+              <animateMotion dur="16s" repeatCount="indefinite" path={ROUTE} />
             </circle>
           </motion.g>
 
-          {markers.map((m, i) => (
+          {/* Pontos de referência */}
+          {landmarks.map((m, i) => (
             <motion.g
-              key={i}
+              key={m.label}
               style={{ transformOrigin: `${m.cx}px ${m.cy}px` }}
               variants={{
                 hidden: { scale: 0, opacity: 0 },
-                show: { scale: 1, opacity: 1, transition: { delay: 1.8 + i * 0.2, type: "spring", stiffness: 400, damping: 15 } },
+                show: { scale: 1, opacity: 1, transition: { delay: 2.2 + i * 0.2, type: "spring", stiffness: 400, damping: 15 } },
               }}
             >
-              <circle cx={m.cx} cy={m.cy} r={m.r} fill={m.fill} />
-              {m.inner && <circle cx={m.cx} cy={m.cy} r={m.r / 2.4} fill="#ffffff" />}
-              {i === 0 && (
-                <circle cx={m.cx} cy={m.cy} r={m.r} fill="none" stroke="#ff5708" strokeWidth="2">
-                  <animate attributeName="r" values="14;30" dur="1.8s" repeatCount="indefinite" />
-                  <animate attributeName="opacity" values="1;0" dur="1.8s" repeatCount="indefinite" />
-                </circle>
-              )}
+              <circle cx={m.cx} cy={m.cy} r="11" fill="#ffdbcf" />
+              <circle cx={m.cx} cy={m.cy} r="4.5" fill="#131315" />
+              <text x={m.lx} y={m.ly} fill="#ffdbcf" fontWeight="600" className="font-sans text-[30px] md:text-[20px]">
+                {m.label}
+              </text>
             </motion.g>
           ))}
 
-          {labels.map((l, i) => (
-            <motion.text
-              key={l.text}
-              x={l.x}
-              y={l.y}
-              fill={l.fill}
-              fontSize={l.size}
-              fontWeight={l.display ? 700 : 600}
-              className={l.display ? "font-display" : "font-sans"}
-              variants={{
-                hidden: { opacity: 0, y: 8 },
-                show: { opacity: 1, y: 0, transition: { delay: 2 + i * 0.2, duration: 0.5 } },
-              }}
-            >
-              {l.text}
-            </motion.text>
-          ))}
+          {/* Largada / chegada */}
+          <motion.g
+            style={{ transformOrigin: `${start.x}px ${start.y}px` }}
+            variants={{
+              hidden: { scale: 0, opacity: 0 },
+              show: { scale: 1, opacity: 1, transition: { delay: 2, type: "spring", stiffness: 400, damping: 15 } },
+            }}
+          >
+            <circle cx={start.x} cy={start.y} r="18" fill="none" stroke="#ff5708" strokeWidth="3">
+              <animate attributeName="r" values="18;40" dur="1.8s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="1;0" dur="1.8s" repeatCount="indefinite" />
+            </circle>
+            <circle cx={start.x} cy={start.y} r="18" fill="#ff5708" />
+            <circle cx={start.x} cy={start.y} r="7" fill="#ffffff" />
+          </motion.g>
+          <motion.text
+            x="30"
+            y="-30"
+            fill="#ffffff"
+            fontWeight="700"
+            className="font-display text-[36px] md:text-[26px]"
+            variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0, transition: { delay: 2.4, duration: 0.5 } } }}
+          >
+            PONTO DE LARGADA / CHEGADA (06:00)
+          </motion.text>
         </motion.svg>
       </div>
-      <p className="flex items-center justify-center gap-1 text-xs text-on-surface-variant md:hidden">
-        <MoveHorizontal size={14} /> Arraste para ver o mapa completo
-      </p>
     </motion.div>
   );
 }
