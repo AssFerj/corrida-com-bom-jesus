@@ -2,6 +2,7 @@ import "server-only";
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { connection } from "next/server";
 
 const COOKIE = "admin_session";
 const MAX_AGE_SECONDS = 60 * 60 * 12; // 12 horas
@@ -53,6 +54,8 @@ export async function isAdmin(): Promise<boolean> {
   if (!value) return false;
   const [payload, signature] = value.split(".");
   if (!payload || !signature || !safeEqual(signature, sign(payload))) return false;
+  // A validade depende da hora da requisição, nunca de uma hora pré-renderizada
+  await connection();
   return Number(payload) > Date.now() / 1000;
 }
 
