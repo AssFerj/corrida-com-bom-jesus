@@ -1,6 +1,6 @@
 import "server-only";
 import { createHash, createHmac, timingSafeEqual } from "node:crypto";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { connection } from "next/server";
 
@@ -35,9 +35,12 @@ export function checkPassword(input: string) {
 export async function createSession() {
   const exp = Math.floor(Date.now() / 1000) + MAX_AGE_SECONDS;
   const payload = String(exp);
+  // Atrás do proxy do Dokploy (Traefik) o protocolo real vem em x-forwarded-proto.
+  // Cookie "secure" só em HTTPS; em HTTP o navegador o recusaria e o login falharia.
+  const proto = (await headers()).get("x-forwarded-proto")?.split(",")[0]?.trim();
   (await cookies()).set(COOKIE, `${payload}.${sign(payload)}`, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: proto === "https",
     sameSite: "lax",
     path: "/",
     maxAge: MAX_AGE_SECONDS,

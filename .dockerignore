@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.claude
+.vscode
+npm-debug.log*
+Dockerfile
+.dockerignore
+DEPLOY.md
+
+# Segredos nunca entram na imagem (vão nas variáveis do Dokploy)
+.env
+.env.*
+!.env.example
