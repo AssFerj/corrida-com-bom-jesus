@@ -26,9 +26,9 @@ const cards = [
   },
   {
     icon: Medal,
-    label: "Categorias",
-    title: "Geral & Faixas Etárias",
-    text: "Troféus especiais para os 5 primeiros Masculino e Feminino, e medalha Finisher para todos os concluintes.",
+    label: "Chegada",
+    title: "Hidratação & Frutas",
+    text: "Ao final da corrida haverá hidratação e frutas para todos os concluintes.",
     iconCls: "text-secondary group-hover:bg-secondary group-hover:text-surface-container-lowest",
   },
 ];
