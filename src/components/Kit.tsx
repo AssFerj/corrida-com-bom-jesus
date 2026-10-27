@@ -1,6 +1,6 @@
 import Image from "next/image";
 import * as motion from "motion/react-client";
-import { Medal, Flag, HandHeart, BadgeCheck, Info } from "lucide-react";
+import { Medal, Flag, HandHeart, BadgeCheck, Info, GlassWater } from "lucide-react";
 import { SectionHeading } from "./ui";
 import { clipReveal, ease, fadeUp, popIn, stagger, viewportOnce } from "@/lib/motion";
 
@@ -9,6 +9,7 @@ const items = [
   { icon: Flag, cls: "text-primary-container", title: "Entregue na Chegada", text: "Todos que concluírem os 3km recebem a medalha no pórtico." },
   { icon: BadgeCheck, cls: "text-tertiary", title: "Inscrição Confirmada", text: "Garanta a vaga com o Pix de R$ 10,00 e envie o comprovante." },
   { icon: HandHeart, cls: "text-secondary", title: "Corrida Solidária", text: "O 1kg de alimento de cada atleta vira doação para quem precisa." },
+  { icon: GlassWater, cls: "text-tertiary", title: "Hidratação + Frutas", text: "Ao cruzar a chegada, água e frutas frescas para recarregar as energias.", wide: true },
 ];
 
 export function Kit() {
@@ -31,12 +32,12 @@ export function Kit() {
             viewport={{ once: true, amount: 0.2 }}
             className="grid grid-cols-1 gap-4 pt-1 sm:grid-cols-2"
           >
-            {items.map(({ icon: Icon, cls, title, text }) => (
+            {items.map(({ icon: Icon, cls, title, text, wide }) => (
               <motion.div
                 key={title}
                 variants={fadeUp}
                 whileHover={{ scale: 1.03 }}
-                className="group flex items-start gap-3 rounded-[1.5rem] border border-white/5 bg-surface-container p-4 transition-colors hover:border-primary-container/40"
+                className={`group flex items-start gap-3 rounded-[1.5rem] border border-white/5 bg-surface-container p-4 transition-colors hover:border-primary-container/40 ${wide ? "sm:col-span-2" : ""}`}
               >
                 <Icon size={26} className={`mt-0.5 shrink-0 transition-transform duration-300 group-hover:-rotate-12 group-hover:scale-110 ${cls}`} />
                 <div className="flex flex-col">
@@ -107,8 +108,8 @@ export function Kit() {
                 variants={popIn}
                 className="relative shrink-0 self-start overflow-hidden rounded-full bg-primary-container px-4 py-1 text-xs font-bold uppercase text-white sm:self-auto"
               >
-                <span className="pointer-events-none absolute inset-y-0 left-0 w-1/3 animate-shine bg-white/40" />
-                100% Metal Fundido
+                {/* <span className="pointer-events-none absolute inset-y-0 left-0 w-1/3 animate-shine bg-white/40" />
+                100% Metal Fundido */}
               </motion.span>
             </motion.div>
           </motion.div>

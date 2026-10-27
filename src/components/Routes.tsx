@@ -1,5 +1,5 @@
 import * as motion from "motion/react-client";
-import { Clock, Droplet, Mountain, Award, MapIcon } from "lucide-react";
+import { Clock, Droplet, Mountain, Award, GlassWater, MapIcon } from "lucide-react";
 import { SectionHeading } from "./ui";
 import { drawPath, fadeLeft, fadeUp, stagger } from "@/lib/motion";
 
@@ -28,6 +28,7 @@ const course: Course = {
     { icon: Droplet, text: "Ponto d'água no km 1.5", cls: "text-tertiary" },
     { icon: Mountain, text: "Ganho altimétrico: 8m (Plano)", cls: "text-secondary-container" },
     { icon: Award, text: "Medalha para quem concluir", cls: "text-secondary" },
+    { icon: GlassWater, text: "Hidratação + frutas na chegada", cls: "text-tertiary" },
   ],
   color: "#ff5708",
   cta: "Inscrever nos 3km • R$ 10,00",
@@ -36,7 +37,7 @@ const course: Course = {
 
 // Circuito real no centro de Camocim (traçado a partir do mapa do percurso).
 // Começa e termina na largada/chegada, em frente à Igreja Matriz.
-const START = { x: 662, y: 795 };
+const START = { x: 630, y: 770 };
 const ROUTE =
   "M 662,795 L 655,795 L 618,760 L 592,730 L 612,720 L 662,688 L 525,560 L 404,452 L 555,328 L 507,290 L 363,200 L 245,120 L 180,90 L 52,16 L 75,6 L 88,10 L 278,128 L 460,210 L 680,342 L 735,348 L 838,400 L 1000,512 L 898,602 L 790,693 L 670,795 Z";
 const COAST = "M 120,-70 L 150,0 L 300,98 L 470,192 L 690,318 L 845,382 L 1010,478 L 1060,496";
@@ -82,7 +83,7 @@ function CourseCard({ c }: { c: Course }) {
           {c.text}
         </motion.p>
 
-        <motion.div variants={stagger(0.08)} className="grid grid-cols-1 gap-3 py-1 min-[420px]:grid-cols-2 lg:grid-cols-4">
+        <motion.div variants={stagger(0.08)} className="grid grid-cols-1 gap-3 py-1 min-[420px]:grid-cols-2 lg:grid-cols-5">
           {c.features.map(({ icon: Icon, text, cls }) => (
             <motion.div key={text} variants={fadeUp} className="flex items-center gap-2 text-on-surface">
               <Icon size={20} className={`shrink-0 ${cls}`} />
@@ -114,7 +115,7 @@ function CircuitMap() {
   const landmarks = [
     { cx: 262, cy: 124, label: "BEIRA MAR", lx: 300, ly: 92 },
     { cx: 642, cy: 272, label: "PÍER DE CAMOCIM", lx: 668, ly: 250 },
-    { cx: 716, cy: 796, label: "IGREJA MATRIZ", lx: 742, ly: 806 },
+    { cx: 620, cy: 800, label: "IGREJA MATRIZ", lx: 525, ly: 840 },
   ];
 
   return (

@@ -50,7 +50,7 @@ O pagamento é feito por Pix direto na conta da organização, sem gateway nem i
 
 ### Site público
 - Hero com contagem regressiva, destaques, percursos com **mapa real do traçado** no centro de Camocim,
-  medalha para todos que concluírem, programação e patrocinadores.
+  medalha para todos que concluírem, hidratação + frutas na chegada, programação e patrocinadores.
 - Animações de entrada em todas as seções (Motion), com respeito à preferência de **movimento reduzido**.
 - Formulário de pré‑inscrição com validação em tempo real e máscara de telefone.
 - Tela de sucesso com número da inscrição, chave Pix com botão **copiar** e botão de **WhatsApp**
