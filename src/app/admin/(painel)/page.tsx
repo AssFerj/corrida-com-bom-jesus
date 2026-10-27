@@ -105,13 +105,18 @@ async function Dashboard({ searchParams }: { searchParams: SP }) {
         })}
       </div>
       <div className="flex flex-wrap gap-2 text-xs text-on-surface-variant">
-        <span className="rounded-full bg-surface-container px-3 py-1.5">3 km: <strong className="text-white">{stats.km3}</strong></span>
-        <span className="rounded-full bg-surface-container px-3 py-1.5">5 km: <strong className="text-white">{stats.km5}</strong></span>
-        <span className="rounded-full bg-surface-container px-3 py-1.5">Kits entregues: <strong className="text-white">{stats.kits}</strong> de {stats.confirmadas}</span>
+        <span className="rounded-full bg-surface-container px-3 py-1.5">
+          Alimentos entregues: <strong className="text-white">{stats.kits}</strong> de {stats.confirmadas} confirmadas
+        </span>
+        {stats.km5 > 0 && (
+          <span className="rounded-full bg-secondary-container/15 px-3 py-1.5 text-secondary-container">
+            {stats.km5} inscrição(ões) antiga(s) em 5 km: edite para 3 km
+          </span>
+        )}
       </div>
 
       {/* Filtros (formulário GET: funciona até sem JavaScript) */}
-      <form method="get" className={`${cardCls} grid grid-cols-1 gap-3 md:grid-cols-[1fr_auto_auto_auto]`}>
+      <form method="get" className={`${cardCls} grid grid-cols-1 gap-3 md:grid-cols-[1fr_auto_auto]`}>
         <div className="relative">
           <Search size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant" />
           <input
@@ -126,11 +131,6 @@ async function Dashboard({ searchParams }: { searchParams: SP }) {
           {STATUSES.map((s) => (
             <option key={s} value={s}>{STATUS_LABEL[s]}</option>
           ))}
-        </select>
-        <select name="modalidade" defaultValue={filters.modality} className={`${fieldCls} cursor-pointer md:w-40`} aria-label="Modalidade">
-          <option value="">3 km e 5 km</option>
-          <option value="3km">3 km</option>
-          <option value="5km">5 km</option>
         </select>
         <div className="flex gap-2">
           <button type="submit" className={`${btnPrimary} flex-1`}>Filtrar</button>

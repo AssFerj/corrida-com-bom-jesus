@@ -1,6 +1,8 @@
 // Tipos, rótulos e validação usados tanto no navegador quanto no servidor.
 
+// "5km" continua no tipo só para exibir inscrições antigas; novas inscrições aceitam apenas 3km.
 export const MODALITIES = ["3km", "5km"] as const;
+export const OPEN_MODALITIES: readonly Modality[] = ["3km"];
 export const CATEGORIES = ["masculino", "feminino"] as const;
 export const STATUSES = ["pendente", "confirmada", "cancelada"] as const;
 
@@ -10,7 +12,7 @@ export type Status = (typeof STATUSES)[number];
 
 export const MODALITY_LABEL: Record<Modality, string> = {
   "3km": "3km Caminhada / Corrida",
-  "5km": "5km Corrida Oficial",
+  "5km": "5km (modalidade encerrada)",
 };
 export const CATEGORY_LABEL: Record<Category, string> = {
   masculino: "Masculino",
@@ -85,7 +87,7 @@ export function parseRegistration(
     errors.name = "Informe o nome completo do atleta.";
   }
   if (phone.length < 10 || phone.length > 11) errors.phone = "Informe um telefone com DDD.";
-  if (!MODALITIES.includes(modality)) errors.modality = "Escolha a modalidade.";
+  if (!OPEN_MODALITIES.includes(modality)) errors.modality = "A corrida tem apenas o percurso de 3km.";
   if (!CATEGORIES.includes(category)) errors.category = "Escolha a categoria.";
 
   if (Object.keys(errors).length) return { ok: false, errors };

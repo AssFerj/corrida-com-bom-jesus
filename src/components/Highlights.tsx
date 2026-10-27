@@ -19,8 +19,8 @@ const cards = [
   },
   {
     icon: Gauge,
-    label: "Modalidades",
-    title: "3km • 5km",
+    label: "Percurso",
+    title: "3km",
     text: "Corra no seu tempo e no seu ritmo, apenas finalize todo o percurso e aproveite o evento.",
     iconCls: "text-tertiary group-hover:bg-tertiary-container group-hover:text-white",
   },

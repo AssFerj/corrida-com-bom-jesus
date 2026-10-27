@@ -1,6 +1,6 @@
 import * as motion from "motion/react-client";
 
-const words = ["Fé", "Superação", "Solidariedade", "3KM", "5KM", "15/11/2026", "Largada 06:00", "Bom Jesus dos Navegantes"];
+const words = ["Fé", "Superação", "Solidariedade", "3KM", "Medalha para Todos", "15/11/2026", "Largada 06:00", "Bom Jesus dos Navegantes"];
 
 /** Faixa inclinada com texto rolando continuamente. */
 export function Marquee() {

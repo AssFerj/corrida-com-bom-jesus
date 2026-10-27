@@ -10,7 +10,7 @@ import { blurIn, ease, fadeUp, stagger } from "@/lib/motion";
 const chips = [
   { icon: CalendarDays, text: "15 de Novembro de 2026", color: "text-secondary-container" },
   { icon: AlarmClock, text: "Largada às 06:00h", color: "text-primary-container" },
-  { icon: Ruler, text: "3km & 5km (Masc/Fem)", color: "text-tertiary" },
+  { icon: Ruler, text: "3km Corrida/Caminhada (Masc/Fem)", color: "text-tertiary" },
   { icon: HandHeart, text: "R$ 10,00 + 1kg de Alimento", color: "text-secondary" },
 ];
 

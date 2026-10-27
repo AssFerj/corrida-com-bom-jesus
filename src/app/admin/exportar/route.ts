@@ -30,7 +30,7 @@ export async function GET(request: Request) {
     const safe = /^[=+\-@]/.test(s) ? `'${s}` : s;
     return `"${safe.replace(/"/g, '""')}"`;
   };
-  const header = ["Nº", "Nome", "Telefone", "Modalidade", "Categoria", "Status", "Kit entregue", "Inscrito em", "Confirmado em", "Observações"];
+  const header = ["Nº", "Nome", "Telefone", "Modalidade", "Categoria", "Status", "Alimento entregue", "Inscrito em", "Confirmado em", "Observações"];
   const lines = rows.map((r) =>
     [
       padNumber(r.number),

@@ -1,7 +1,7 @@
 import * as motion from "motion/react-client";
-import { Clock, Droplet, Mountain, Award, Gauge, Trophy, MapIcon } from "lucide-react";
+import { Clock, Droplet, Mountain, Award, MapIcon } from "lucide-react";
 import { SectionHeading } from "./ui";
-import { drawPath, fadeLeft, fadeRight, fadeUp, stagger } from "@/lib/motion";
+import { drawPath, fadeLeft, fadeUp, stagger } from "@/lib/motion";
 
 type Course = {
   tag: string;
@@ -16,41 +16,23 @@ type Course = {
   ctaPrimary?: boolean;
 };
 
-const courses: Course[] = [
-  {
-    tag: "Iniciantes • Caminhada • Corrida",
-    tagCls: "bg-tertiary-container/20 text-tertiary",
-    title: "Circuito 3 KM",
-    big: "3K",
-    bigCls: "text-on-surface-variant/30",
-    text: "Perfeito para quem deseja participar da celebração, praticar atividade física leve ou estrear no universo das corridas de rua.",
-    features: [
-      { icon: Clock, text: "Largada às 06:00h", cls: "text-primary-container" },
-      { icon: Droplet, text: "Ponto d'água no km 1.5", cls: "text-tertiary" },
-      { icon: Mountain, text: "Ganho altimétrico: 8m (Plano)", cls: "text-secondary-container" },
-      { icon: Award, text: "Medalha Finisher no pórtico", cls: "text-secondary" },
-    ],
-    color: "#00daf3",
-    cta: "Inscrever nos 3km • R$ 10,00",
-  },
-  {
-    tag: "Competição • Ritmo • Pace",
-    tagCls: "bg-primary-container/20 text-primary",
-    title: "Circuito 5 KM",
-    big: "5K",
-    bigCls: "text-primary-container/30",
-    text: "Percurso rápido e técnico pela orla com asfalto plano, propício para bater seu recorde pessoal (RP) com visual incrível da nossa cidade.",
-    features: [
-      { icon: Clock, text: "Largada às 06:00h", cls: "text-primary-container" },
-      { icon: Droplet, text: "2 Pontos d'água (Km 2 & Km 4)", cls: "text-tertiary" },
-      { icon: Gauge, text: "Chip Eletrônico de Precisão", cls: "text-secondary-container" },
-      { icon: Trophy, text: "Troféus Geral & Faixa Etária", cls: "text-secondary" },
-    ],
-    color: "#ff5708",
-    cta: "Inscrever nos 5km • R$ 10,00",
-    ctaPrimary: true,
-  },
-];
+const course: Course = {
+  tag: "Caminhada • Corrida • Todas as idades",
+  tagCls: "bg-primary-container/20 text-primary",
+  title: "Circuito 3 KM",
+  big: "3K",
+  bigCls: "text-primary-container/30",
+  text: "Um percurso plano pela Beira Mar e pelo centro de Camocim, perfeito para quem quer correr, caminhar, celebrar com a família ou estrear no universo das corridas de rua.",
+  features: [
+    { icon: Clock, text: "Largada às 06:00h", cls: "text-primary-container" },
+    { icon: Droplet, text: "Ponto d'água no km 1.5", cls: "text-tertiary" },
+    { icon: Mountain, text: "Ganho altimétrico: 8m (Plano)", cls: "text-secondary-container" },
+    { icon: Award, text: "Medalha para quem concluir", cls: "text-secondary" },
+  ],
+  color: "#ff5708",
+  cta: "Inscrever nos 3km • R$ 10,00",
+  ctaPrimary: true,
+};
 
 // Circuito real no centro de Camocim (traçado a partir do mapa do percurso)
 const ROUTE =
@@ -58,10 +40,10 @@ const ROUTE =
 const COAST = "M 120,-70 L 150,0 L 300,98 L 470,192 L 690,318 L 845,382 L 1010,478 L 1060,496";
 const SEA = `${COAST} L 1060,-70 Z`;
 
-function CourseCard({ c, index }: { c: Course; index: number }) {
+function CourseCard({ c }: { c: Course }) {
   return (
     <motion.article
-      variants={index === 0 ? fadeLeft : fadeRight}
+      variants={fadeLeft}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
@@ -98,7 +80,7 @@ function CourseCard({ c, index }: { c: Course; index: number }) {
           {c.text}
         </motion.p>
 
-        <motion.div variants={stagger(0.08)} className="grid grid-cols-1 gap-3 py-1 min-[420px]:grid-cols-2">
+        <motion.div variants={stagger(0.08)} className="grid grid-cols-1 gap-3 py-1 min-[420px]:grid-cols-2 lg:grid-cols-4">
           {c.features.map(({ icon: Icon, text, cls }) => (
             <motion.div key={text} variants={fadeUp} className="flex items-center gap-2 text-on-surface">
               <Icon size={20} className={`shrink-0 ${cls}`} />
@@ -305,15 +287,11 @@ export function Routes() {
       />
       <div className="mx-auto flex max-w-7xl flex-col gap-10 px-4 sm:px-6">
         <SectionHeading
-          eyebrow="Circuitos Oficiais"
-          title="Escolha seu Percurso"
-          description="Percursos totalmente planos, aferidos e cercados pela brisa marítima, pensados para velocidade e conforto dos corredores."
+          eyebrow="Circuito Oficial"
+          title="O Percurso"
+          description="Percurso totalmente plano, aferido e cercado pela brisa marítima, pensado para o conforto de quem corre e de quem caminha."
         />
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {courses.map((c, i) => (
-            <CourseCard key={c.title} c={c} index={i} />
-          ))}
-        </div>
+        <CourseCard c={course} />
         <CircuitMap />
       </div>
     </section>

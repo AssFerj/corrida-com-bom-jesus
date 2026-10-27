@@ -39,7 +39,7 @@
 
 ## Visão geral
 
-Landing page moderna e responsiva para divulgar a corrida (percursos 3 km e 5 km, kit, programação e
+Landing page moderna e responsiva para divulgar a corrida (percurso de 3 km, medalha, programação e
 patrocinadores) com **pré‑inscrição online**. O atleta preenche o formulário, recebe na hora o número
 da inscrição, a **chave Pix** e um botão para enviar o **comprovante pelo WhatsApp**. A organização
 confere o pagamento e confirma a inscrição em um **painel administrativo** próprio.
@@ -50,7 +50,7 @@ O pagamento é feito por Pix direto na conta da organização, sem gateway nem i
 
 ### Site público
 - Hero com contagem regressiva, destaques, percursos com **mapa real do traçado** no centro de Camocim,
-  kit do atleta, programação e patrocinadores.
+  medalha para todos que concluírem, programação e patrocinadores.
 - Animações de entrada em todas as seções (Motion), com respeito à preferência de **movimento reduzido**.
 - Formulário de pré‑inscrição com validação em tempo real e máscara de telefone.
 - Tela de sucesso com número da inscrição, chave Pix com botão **copiar** e botão de **WhatsApp**
@@ -59,11 +59,11 @@ O pagamento é feito por Pix direto na conta da organização, sem gateway nem i
 ### Painel administrativo (`/admin`)
 - Login com senha única da organização.
 - Totais em tempo real: ativas, aguardando pagamento, confirmadas (com valor arrecadado), canceladas,
-  por modalidade e kits entregues.
-- Busca por nome, telefone ou número; filtros por status e modalidade; paginação.
+  e alimentos entregues.
+- Busca por nome, telefone ou número; filtro por status; paginação.
 - Ações: **confirmar pagamento**, desfazer, **cancelar** (libera a vaga), reativar — sempre com modal
   de confirmação.
-- Ficha do atleta: edição de dados, observações internas, controle de **entrega do kit**,
+- Ficha do atleta: edição de dados, observações internas, controle de **entrega do 1kg de alimento**,
   atalhos de WhatsApp e **histórico completo** de alterações.
 - Configurações: chave Pix, titular, WhatsApp, valor da inscrição, **limite de vagas** e
   abrir/fechar inscrições.
@@ -112,7 +112,7 @@ simultâneos. A solução combina:
 | **Detecção de duplicidade** por nome + telefone | Quem recarrega a página e envia de novo recebe a inscrição já existente. |
 | **Limite de vagas checado sob o lock** | Com 30 pessoas disputando as 5 últimas vagas, **exatamente 5** entram. |
 | **Controle de concorrência otimista** (coluna `version`) | Dois administradores alterando a mesma inscrição: a primeira alteração vale e a segunda recebe aviso de conflito, em vez de sobrescrever silenciosamente. |
-| **Trilha de auditoria** (`registration_events`, FK `ON DELETE RESTRICT`) | Todo evento — criação, mudança de status, edição, kit — fica registrado com data e detalhes. |
+| **Trilha de auditoria** (`registration_events`, FK `ON DELETE RESTRICT`) | Todo evento — criação, mudança de status, edição, entrega do alimento — fica registrado com data e detalhes. |
 | **Restrições no banco** (`CHECK`, `UNIQUE`, `NOT NULL`) | Mesmo que o código falhe, o banco recusa dados inválidos. |
 
 Esses cenários foram validados com testes de carga concorrente contra um PostgreSQL real
@@ -286,7 +286,7 @@ erDiagram
     uuid idempotency_key UK
     text name
     text phone
-    text modality "3km | 5km"
+    text modality "3km (5km só em registros antigos)"
     text category "masculino | feminino"
     text status "pendente | confirmada | cancelada"
     bool kit_delivered

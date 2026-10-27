@@ -45,7 +45,7 @@ export function Footer() {
               <HandHeart size={28} className="shrink-0 text-secondary-container" />
               <div className="flex flex-col">
                 <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Ação Solidária Obrigatória</span>
-                <span className="text-sm">Entrega de 1kg de alimento não-perecível na retirada do kit atleta.</span>
+                <span className="text-sm">Entrega de 1kg de alimento não-perecível no Salão Paroquial após a confirmação do Pix (seg. a sex., 8h às 18h).</span>
               </div>
             </div>
           </motion.div>

@@ -48,11 +48,15 @@ export function EditRegistrationForm(props: Props) {
           {err.phone && <span className="text-xs font-semibold text-primary-container">{err.phone}</span>}
         </div>
         <div className="flex flex-col gap-1.5">
-          <label htmlFor="modality" className={labelCls}>Modalidade</label>
-          <select id="modality" name="modality" defaultValue={props.modality} className={`${fieldCls} cursor-pointer`}>
+          <label htmlFor="modality" className={labelCls}>Percurso</label>
+          <select id="modality" name="modality" defaultValue="3km" className={`${fieldCls} cursor-pointer`}>
             <option value="3km">3 km Caminhada / Corrida</option>
-            <option value="5km">5 km Corrida Oficial</option>
           </select>
+          {props.modality !== "3km" && (
+            <span className="text-xs font-semibold text-secondary-container">
+              Inscrição antiga em {props.modality}: ao salvar, passa para 3 km.
+            </span>
+          )}
         </div>
         <div className="flex flex-col gap-1.5">
           <label htmlFor="category" className={labelCls}>Categoria</label>

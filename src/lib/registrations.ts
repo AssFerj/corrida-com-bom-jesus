@@ -354,7 +354,7 @@ export async function setKitDelivered(id: number, expectedVersion: number, deliv
   return transaction(async (client) => {
     const current = await lockForUpdate(client, id, expectedVersion);
     if (delivered && current.status !== "confirmada") {
-      throw new UserError("Só é possível entregar o kit de inscrições confirmadas.");
+      throw new UserError("Só é possível registrar a entrega do alimento em inscrições confirmadas.");
     }
     const { rows } = await client.query(
       `UPDATE registrations SET kit_delivered = $2, version = version + 1, updated_at = now()

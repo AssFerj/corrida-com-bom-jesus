@@ -27,7 +27,7 @@ export function KitToggle({ id, version, delivered, enabled }: { id: number; ver
         }`}
       >
         {pending ? <Loader2 size={16} className="animate-spin" /> : delivered ? <PackageCheck size={16} /> : <PackageOpen size={16} />}
-        {delivered ? "Kit entregue • desfazer" : "Marcar kit como entregue"}
+        {delivered ? "Alimento entregue • desfazer" : "Marcar alimento como entregue"}
       </button>
       {!enabled && !delivered && (
         <span className="text-xs text-on-surface-variant">Disponível depois que o pagamento for confirmado.</span>

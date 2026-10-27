@@ -1,14 +1,14 @@
 import Image from "next/image";
 import * as motion from "motion/react-client";
-import { Shirt, IdCard, HeartPulse, Apple, Info, Medal } from "lucide-react";
+import { Medal, Flag, HandHeart, BadgeCheck, Info } from "lucide-react";
 import { SectionHeading } from "./ui";
 import { clipReveal, ease, fadeUp, popIn, stagger, viewportOnce } from "@/lib/motion";
 
 const items = [
-  { icon: Shirt, cls: "text-primary-container", title: "Camiseta Técnica Dry-Fit", text: "Poliamida premium respirável com estampa alusiva ao evento." },
-  { icon: IdCard, cls: "text-secondary-container", title: "Número de Peito & Chip", text: "Identificação personalizada com cronometragem eletrônica oficial." },
-  { icon: HeartPulse, cls: "text-tertiary", title: "Seguro Atleta & Apoio", text: "Cobertura médica completa e UTI móvel em todo o trajeto." },
-  { icon: Apple, cls: "text-secondary", title: "Frutas & Pós-Prova", text: "Mesa de reposição isotônica e frutas frescas na linha de chegada." },
+  { icon: Medal, cls: "text-secondary-container", title: "Medalha Finisher", text: "Peça exclusiva da 1ª edição, com fita personalizada do evento." },
+  { icon: Flag, cls: "text-primary-container", title: "Entregue na Chegada", text: "Todos que concluírem os 3km recebem a medalha no pórtico." },
+  { icon: BadgeCheck, cls: "text-tertiary", title: "Inscrição Confirmada", text: "Garanta a vaga com o Pix de R$ 10,00 e envie o comprovante." },
+  { icon: HandHeart, cls: "text-secondary", title: "Corrida Solidária", text: "O 1kg de alimento de cada atleta vira doação para quem precisa." },
 ];
 
 export function Kit() {
@@ -18,10 +18,10 @@ export function Kit() {
         <div className="flex flex-col gap-4 lg:col-span-6">
           <SectionHeading
             align="left"
-            eyebrow="Experiência Completa"
+            eyebrow="Sua Recompensa"
             eyebrowClass="text-primary"
-            title="Kit Atleta & Medalha"
-            description="Cada atleta inscrito por apenas R$ 10,00 (+ 1kg de alimento) recebe itens de padrão profissional, garantindo uma lembrança eterna dessa   conquista."
+            title="Medalha de Participação"
+            description="Cada atleta inscrito por apenas R$ 10,00 (+ 1kg de alimento) que completar o percurso leva para casa a medalha oficial, uma lembrança eterna dessa conquista."
           />
 
           <motion.div
@@ -56,9 +56,10 @@ export function Kit() {
           >
             <Info size={30} className="shrink-0 text-secondary-container" />
             <div className="flex flex-col text-sm">
-              <span className="text-xs font-bold uppercase text-white">Retirada dos Kits</span>
+              <span className="text-xs font-bold uppercase text-white">Entrega do Alimento</span>
               <span className="text-on-surface-variant">
-                Sábado, 14/11/2026, das 09h às 18h no Salão Paroquial. Obrigatória a entrega de 1kg de alimento.
+                Após a confirmação do Pix, entregue 1kg de alimento não-perecível no Salão Paroquial, de segunda a
+                sexta, das 8h às 18h, até sexta-feira, 13/11.
               </span>
             </div>
           </motion.div>
@@ -80,8 +81,8 @@ export function Kit() {
               className="absolute inset-0"
             >
               <Image
-                src="/images/kit-medalha.png"
-                alt="Medalha finisher em metal com fita laranja ao lado da camiseta técnica do evento"
+                src="/images/medalha.png"
+                alt="Medalha da 1ª Corrida de Bom Jesus dos Navegantes com fita amarela personalizada"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
@@ -99,7 +100,7 @@ export function Kit() {
                   <h4 className="font-display text-lg font-medium uppercase leading-tight text-white sm:text-xl">
                     Medalha Exclusiva
                   </h4>
-                  <span className="text-sm text-on-surface-variant">Entregue para todos os concluintes dos 3k e 5k</span>
+                  <span className="text-sm text-on-surface-variant">Entregue a todos que concluírem os 3km</span>
                 </div>
               </div>
               <motion.span

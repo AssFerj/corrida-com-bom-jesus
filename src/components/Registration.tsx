@@ -29,6 +29,9 @@ const fieldCls =
   "w-full rounded-full border bg-surface-container-high px-5 py-3 text-white placeholder:text-on-surface-variant/40 transition-all focus:border-primary-container focus:outline-none focus:ring-4 focus:ring-primary-container/20";
 const labelCls = "text-xs font-semibold uppercase tracking-wider text-on-surface-variant";
 
+// A corrida tem um único percurso
+const MODALITY: Modality = "3km";
+
 type SuccessData = {
   duplicate: boolean;
   registration: { number: number; name: string; modality: Modality; category: Category };
@@ -205,7 +208,8 @@ function SuccessPanel({ data, onReset }: { data: SuccessData; onReset: () => voi
       </div>
 
       <p className="text-center text-xs text-on-surface-variant">
-        3. A organização confere o pagamento e confirma sua inscrição. Leve 1kg de alimento na retirada do kit.
+        3. A organização confere o pagamento e confirma sua inscrição. Depois, entregue 1kg de alimento no Salão
+        Paroquial (seg. a sex., 8h às 18h, até 13/11).
       </p>
 
       <button
@@ -220,7 +224,6 @@ function SuccessPanel({ data, onReset }: { data: SuccessData; onReset: () => voi
 }
 
 export function Registration() {
-  const [modalidade, setModalidade] = useState<Modality>("3km");
   const [genero, setGenero] = useState<Category>("masculino");
   const [phone, setPhone] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -250,7 +253,7 @@ export function Registration() {
           idempotencyKey: keyRef.current,
           name: form.get("nome"),
           phone,
-          modality: modalidade,
+          modality: MODALITY,
           category: genero,
           website: form.get("website"),
         }),
@@ -404,16 +407,14 @@ export function Registration() {
                 </motion.div>
 
                 <motion.div variants={fadeUp} className="grid grid-cols-1 gap-4 pt-1 md:grid-cols-2">
+                  {/* Percurso único: aparece já selecionado */}
                   <ChipGroup
                     name="modalidade"
-                    label="Modalidade Desejada"
-                    value={modalidade}
-                    onChange={(v) => setModalidade(v as Modality)}
+                    label="Percurso"
+                    value={MODALITY}
+                    onChange={() => {}}
                     error={fieldErrors.modality}
-                    options={[
-                      { value: "3km", label: "3km Caminhada / Corrida" },
-                      { value: "5km", label: "5km Corrida Oficial" },
-                    ]}
+                    options={[{ value: MODALITY, label: MODALITY_LABEL[MODALITY] }]}
                   />
                   <ChipGroup
                     name="genero"
@@ -432,8 +433,9 @@ export function Registration() {
                   <label className="flex cursor-pointer items-center gap-3 rounded-[1.5rem] bg-surface-container-high/60 p-3">
                     <input type="checkbox" required defaultChecked className="h-5 w-5 shrink-0 accent-primary-container" />
                     <span className="text-sm leading-snug text-on-surface-variant">
-                      Estou ciente de que devo levar <strong className="text-white">1kg de alimento não-perecível</strong> na
-                      retirada do kit no dia 14/11.
+                      Estou ciente de que, após a confirmação do Pix, devo entregar{" "}
+                      <strong className="text-white">1kg de alimento não-perecível</strong> no Salão Paroquial (seg. a sex.,
+                      8h às 18h, até 13/11).
                     </span>
                   </label>
                 </motion.div>
