@@ -34,9 +34,11 @@ const course: Course = {
   ctaPrimary: true,
 };
 
-// Circuito real no centro de Camocim (traçado a partir do mapa do percurso)
+// Circuito real no centro de Camocim (traçado a partir do mapa do percurso).
+// Começa e termina na largada/chegada, em frente à Igreja Matriz.
+const START = { x: 662, y: 795 };
 const ROUTE =
-  "M 52,16 L 75,6 L 88,10 L 278,128 L 460,210 L 680,342 L 735,348 L 838,400 L 1000,512 L 898,602 L 790,693 L 670,795 L 655,795 L 618,760 L 592,730 L 612,720 L 662,688 L 525,560 L 404,452 L 555,328 L 507,290 L 363,200 L 245,120 L 180,90 Z";
+  "M 662,795 L 655,795 L 618,760 L 592,730 L 612,720 L 662,688 L 525,560 L 404,452 L 555,328 L 507,290 L 363,200 L 245,120 L 180,90 L 52,16 L 75,6 L 88,10 L 278,128 L 460,210 L 680,342 L 735,348 L 838,400 L 1000,512 L 898,602 L 790,693 L 670,795 Z";
 const COAST = "M 120,-70 L 150,0 L 300,98 L 470,192 L 690,318 L 845,382 L 1010,478 L 1060,496";
 const SEA = `${COAST} L 1060,-70 Z`;
 
@@ -107,12 +109,12 @@ function CourseCard({ c }: { c: Course }) {
 }
 
 function CircuitMap() {
-  // Ponto de largada/chegada (canto da Beira Mar)
-  const start = { x: 52, y: 16 };
+  const start = START;
 
   const landmarks = [
     { cx: 262, cy: 124, label: "BEIRA MAR", lx: 300, ly: 92 },
     { cx: 642, cy: 272, label: "PÍER DE CAMOCIM", lx: 668, ly: 250 },
+    { cx: 716, cy: 796, label: "IGREJA MATRIZ", lx: 742, ly: 806 },
   ];
 
   return (
@@ -142,14 +144,14 @@ function CircuitMap() {
 
       <div className="relative w-full overflow-hidden rounded-[1.5rem] bg-surface-container-lowest">
         <motion.svg
-          viewBox="0 -70 1060 890"
+          viewBox="0 -70 1060 940"
           fill="none"
           className="mx-auto block h-auto max-h-[620px] w-full"
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.3 }}
           role="img"
-          aria-label="Mapa do circuito pelo centro de Camocim, com largada na Beira Mar, passagem pela orla e pelo Píer"
+          aria-label="Mapa do circuito pelo centro de Camocim, com largada e chegada em frente à Igreja Matriz, passagem pela Beira Mar e pelo Píer"
         >
           <defs>
             {/* Malha de ruas, alinhada com a orla */}
@@ -167,7 +169,7 @@ function CircuitMap() {
             x="0"
             y="-70"
             width="1060"
-            height="890"
+            height="940"
             fill="url(#streets)"
             variants={{ hidden: { opacity: 0 }, show: { opacity: 0.8, transition: { duration: 1.2 } } }}
           />
@@ -260,8 +262,9 @@ function CircuitMap() {
             <circle cx={start.x} cy={start.y} r="7" fill="#ffffff" />
           </motion.g>
           <motion.text
-            x="30"
-            y="-30"
+            x={start.x - 64}
+            y={start.y + 6}
+            textAnchor="end"
             fill="#ffffff"
             fontWeight="700"
             className="font-display text-[36px] md:text-[26px]"
