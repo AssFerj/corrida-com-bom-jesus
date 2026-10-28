@@ -27,7 +27,7 @@ const course: Course = {
     { icon: Clock, text: "Largada às 06:00h", cls: "text-primary-container" },
     { icon: Droplet, text: "Ponto d'água no km 1.5", cls: "text-tertiary" },
     { icon: Mountain, text: "Ganho altimétrico: 8m (Plano)", cls: "text-secondary-container" },
-    { icon: Award, text: "Medalha para quem concluir", cls: "text-secondary" },
+    { icon: Award, text: "Medalha com voucher", cls: "text-secondary" },
     { icon: GlassWater, text: "Hidratação + frutas na chegada", cls: "text-tertiary" },
   ],
   color: "#ff5708",

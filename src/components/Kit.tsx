@@ -6,7 +6,7 @@ import { clipReveal, ease, fadeUp, popIn, stagger, viewportOnce } from "@/lib/mo
 
 const items = [
   { icon: Medal, cls: "text-secondary-container", title: "Medalha Finisher", text: "Peça exclusiva da 1ª edição, com fita personalizada do evento." },
-  { icon: Flag, cls: "text-primary-container", title: "Entregue na Chegada", text: "Todos que concluírem os 3km recebem a medalha no pórtico." },
+  { icon: Flag, cls: "text-primary-container", title: "Entregue na Chegada", text: "Todos que concluírem os 3km recebem a medalha no pórtico, mediante apresentação do voucher." },
   { icon: BadgeCheck, cls: "text-tertiary", title: "Inscrição Confirmada", text: "Garanta a vaga com o Pix de R$ 10,00 e envie o comprovante." },
   { icon: HandHeart, cls: "text-secondary", title: "Corrida Solidária", text: "O 1kg de alimento de cada atleta vira doação para quem precisa." },
   { icon: GlassWater, cls: "text-tertiary", title: "Hidratação + Frutas", text: "Ao cruzar a chegada, água e frutas frescas para recarregar as energias.", wide: true },
@@ -60,7 +60,9 @@ export function Kit() {
               <span className="text-xs font-bold uppercase text-white">Entrega do Alimento</span>
               <span className="text-on-surface-variant">
                 Após a confirmação do Pix, entregue 1kg de alimento não-perecível no Salão Paroquial, de segunda a
-                sexta, das 8h às 18h, até sexta-feira, 13/11.
+                sexta, das 8h às 18h, até sexta-feira, 13/11. Na entrega você recebe um{" "}
+                <strong className="text-white">voucher</strong>: no dia da corrida, a medalha só é entregue mediante a
+                apresentação dele.
               </span>
             </div>
           </motion.div>
@@ -101,7 +103,7 @@ export function Kit() {
                   <h4 className="font-display text-lg font-medium uppercase leading-tight text-white sm:text-xl">
                     Medalha Exclusiva
                   </h4>
-                  <span className="text-sm text-on-surface-variant">Entregue a todos que concluírem os 3km</span>
+                  <span className="text-sm text-on-surface-variant">Entregue a quem concluir os 3km e apresentar o voucher</span>
                 </div>
               </div>
               <motion.span

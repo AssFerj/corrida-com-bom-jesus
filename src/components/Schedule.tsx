@@ -11,8 +11,7 @@ const events = [
   { time: "05:30", title: "Aquecimento Coletivo", text: "Alongamento dinâmico e ativação muscular comandados por profissionais de educação física.", color: "#ff5708" },
   { time: "05:50", title: "Alinhamento & Bênção", text: "Entrada nos pelotões de largada e tradicional bênção solene de Bom Jesus dos Navegantes aos corredores.", color: "#ffd395" },
   { time: "06:00 em ponto", title: "Largada Oficial 3KM", text: "Sinal sonoro oficial com disparo de largada unificada para corredores e caminhantes.", color: "#ff5708", highlight: true },
-  { time: "07:15", title: "Cerimônia de Premiação", text: "Subida ao pódio dos 5 primeiros colocados geral Masc/Fem e entrega de troféus por categoria etária.", color: "#00daf3" },
-  { time: "08:30", title: "Show Acústico & Sorteios", text: "Música ao vivo na orla, sorteio de brindes dos patrocinadores e confraternização geral.", color: "#e5beb2" },
+  { time: "07:00", title: "Aula de Zumba", text: "Aula de zumba aberta a todos na arena, para celebrar a chegada com muita música e energia.", color: "#00daf3" },
 ];
 
 export function Schedule() {

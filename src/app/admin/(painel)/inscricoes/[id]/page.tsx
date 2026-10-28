@@ -54,7 +54,7 @@ async function Detail({ params }: { params: Promise<{ id: string }> }) {
   const { registration: r, events } = data;
   const number = padNumber(r.number);
 
-  const msgConfirmed = `Olá, ${r.name.split(" ")[0]}! Seu pagamento foi confirmado e sua inscrição nº ${number} (${r.modality}) na 1ª Corrida com Bom Jesus dos Navegantes está garantida. Agora é só entregar 1kg de alimento não-perecível no Salão Paroquial, de segunda a sexta, das 8h às 18h, até 13/11. Até a largada!`;
+  const msgConfirmed = `Olá, ${r.name.split(" ")[0]}! Seu pagamento foi confirmado e sua inscrição nº ${number} (${r.modality}) na 1ª Corrida com Bom Jesus dos Navegantes está garantida. Agora é só entregar 1kg de alimento não-perecível no Salão Paroquial, de segunda a sexta, das 8h às 18h, até 13/11. Na entrega você recebe um voucher: guarde-o, pois a medalha só será entregue no dia da corrida mediante a apresentação dele. Até a largada!`;
   const msgPending = `Olá, ${r.name.split(" ")[0]}! Recebemos sua pré-inscrição nº ${number} na 1ª Corrida com Bom Jesus dos Navegantes. Para confirmar, faça o Pix de ${formatMoney(settings.feeCents)}${settings.pixKey ? ` para a chave ${settings.pixKey}` : ""} e envie o comprovante por aqui.`;
 
   return (
@@ -129,7 +129,7 @@ async function Detail({ params }: { params: Promise<{ id: string }> }) {
 
           <section className={`${cardCls} flex flex-col gap-3`}>
             <h2 className="font-display text-xl font-medium uppercase text-white">Entrega do alimento</h2>
-            <p className="text-sm text-on-surface-variant">Marque quando o atleta entregar o 1kg de alimento no Salão Paroquial.</p>
+            <p className="text-sm text-on-surface-variant">Marque quando o atleta entregar o 1kg de alimento no Salão Paroquial e receber o voucher da medalha.</p>
             <KitToggle id={r.id} version={r.version} delivered={r.kitDelivered} enabled={r.status === "confirmada"} />
           </section>
 

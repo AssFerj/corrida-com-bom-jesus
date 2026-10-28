@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import * as motion from "motion/react-client";
+import { FooterLegalLinks, FooterLegalLinksView } from "./FooterLegalLinks";
 import { HandHeart, Mail, Radio, Share2 } from "lucide-react";
 import { LogoMark } from "./ui";
 import { fadeUp, popIn, stagger } from "@/lib/motion";
@@ -12,7 +14,7 @@ const quickLinks = [
   { href: "#percursos", label: "Ponto de Largada" },
 ];
 
-const partners = ["Famol Móveis e Eletros", "Famol Moda Masculina", "Cacaushow"];
+const partners = ["Famol Móveis e Eletros", "Famol Moda Masculina", "Famol Imobiliária", "Clínica Vita", "Cacaushow"];
 
 const socials = [
   { icon: Share2, label: "Compartilhar" },
@@ -45,7 +47,7 @@ export function Footer() {
               <HandHeart size={28} className="shrink-0 text-secondary-container" />
               <div className="flex flex-col">
                 <span className="text-sm font-bold uppercase tracking-wide text-on-surface">Ação Solidária Obrigatória</span>
-                <span className="text-sm">Entrega de 1kg de alimento não-perecível no Salão Paroquial após a confirmação do Pix (seg. a sex., 8h às 18h).</span>
+                <span className="text-sm">Entrega de 1kg de alimento não-perecível no Salão Paroquial após a confirmação do Pix (seg. a sex., 8h às 18h). Na entrega, o atleta recebe o voucher para retirar a medalha no dia da corrida.</span>
               </div>
             </div>
           </motion.div>
@@ -101,13 +103,9 @@ export function Footer() {
           className="flex w-full flex-col items-center justify-between gap-4 border-t border-white/5 pt-6 text-center sm:flex-row sm:text-left"
         >
           <span className="text-sm">© 2026 1ª Corrida com Bom Jesus dos Navegantes. Todos os direitos reservados.</span>
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            {["Termos de Participação", "Privacidade", "Contato da Organização"].map((t) => (
-              <a key={t} href="#" className="text-sm transition-colors hover:text-on-surface">
-                {t}
-              </a>
-            ))}
-          </div>
+          <Suspense fallback={<FooterLegalLinksView whatsapp="" />}>
+            <FooterLegalLinks />
+          </Suspense>
         </motion.div>
       </motion.div>
     </footer>

@@ -14,6 +14,7 @@ import {
   Zap,
 } from "lucide-react";
 import { ease, fadeUp, popIn, stagger, viewportOnce } from "@/lib/motion";
+import { LegalLink } from "./legal/LegalDialog";
 import {
   MODALITY_LABEL,
   formatMoney,
@@ -209,7 +210,8 @@ function SuccessPanel({ data, onReset }: { data: SuccessData; onReset: () => voi
 
       <p className="text-center text-xs text-on-surface-variant">
         3. A organização confere o pagamento e confirma sua inscrição. Depois, entregue 1kg de alimento no Salão
-        Paroquial (seg. a sex., 8h às 18h, até 13/11).
+        Paroquial (seg. a sex., 8h às 18h, até 13/11) e receba o voucher: sem ele não há retirada da medalha no
+        dia da corrida.
       </p>
 
       <button
@@ -418,7 +420,7 @@ export function Registration() {
                   />
                   <ChipGroup
                     name="genero"
-                    label="Categoria de Premiação"
+                    label="Categoria"
                     value={genero}
                     onChange={(v) => setGenero(v as Category)}
                     error={fieldErrors.category}
@@ -435,7 +437,22 @@ export function Registration() {
                     <span className="text-sm leading-snug text-on-surface-variant">
                       Estou ciente de que, após a confirmação do Pix, devo entregar{" "}
                       <strong className="text-white">1kg de alimento não-perecível</strong> no Salão Paroquial (seg. a sex.,
-                      8h às 18h, até 13/11).
+                      8h às 18h, até 13/11), onde recebo o <strong className="text-white">voucher</strong> que devo
+                      apresentar no dia da corrida para receber a medalha.
+                    </span>
+                  </label>
+                  <label className="mt-2 flex cursor-pointer items-center gap-3 rounded-[1.5rem] bg-surface-container-high/60 p-3">
+                    <input type="checkbox" required className="h-5 w-5 shrink-0 accent-primary-container" />
+                    <span className="text-sm leading-snug text-on-surface-variant">
+                      Li e aceito os{" "}
+                      <LegalLink doc="termos" className="font-semibold text-white underline underline-offset-2 hover:text-primary">
+                        Termos de Participação
+                      </LegalLink>{" "}
+                      e a{" "}
+                      <LegalLink doc="privacidade" className="font-semibold text-white underline underline-offset-2 hover:text-primary">
+                        Política de Privacidade
+                      </LegalLink>
+                      .
                     </span>
                   </label>
                 </motion.div>
